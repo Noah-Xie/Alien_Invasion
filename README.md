@@ -8,3 +8,12 @@ this is a game developed with pygame.
 
 ## System requirement
 - pygame
+
+
+
+## Sprint Plan
+
+- Day1
+game base
+- Day2
+move ship
