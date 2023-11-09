@@ -12,8 +12,28 @@ this is a game developed with pygame.
 
 
 ## Sprint Plan
-
+#### Sprint1
 - Day1
 game base
 - Day2
 move ship
+
+#### Sprint 2
+sprint2 backlog：
+- [x] 1.回顾当前代码
+- [x] 2.添加一个外星人
+- [x] 3.创建多排外星人
+    - [x] 3.1 一行外星人, 计算行的容量
+    - [x] 3.2 多行外星人，计算列的容量
+    - [x] 3.3 外星人群移动；
+        - [x] 向右
+        - [x] 检测边缘
+        - [x] 向下
+    - [ ] 撞到飞船或者抵达底部停止
+    - [ ] 销毁飞船并重新创建外星人
+- [ ] 外星人击落
+    - [ ] 刷新所有外星人
+- [ ] 限制飞船数量，结束游戏
+- Day4
+add aliens
+
