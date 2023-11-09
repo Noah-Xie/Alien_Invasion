@@ -10,10 +10,9 @@ this is a game developed with pygame.
 - pygame
 
 
-
-## Sprint Plan
-
-- Day1
-game base
-- Day2
-move ship
+## 开发过程
+- Day0 项目规划
+编写项目描述
+- Day1 游戏主体
+- Day2 飞船的移动
+- Day3 开火
