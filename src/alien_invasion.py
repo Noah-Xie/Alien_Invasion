@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from alien import Alien
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -20,8 +21,15 @@ class AlienInvasion:
             self.screen = pygame.display.set_mode(
                 (self.settings.screen_width, 
                 self.settings.screen_height))
+            self.settings.alien_speed = 0.2
+            self.settings.alien_drop_speed = 5
         pygame.display.set_caption("Alien Invasion")
+
+        # 游戏资源
         self.ship = Ship(self)
+        self.aliens = pygame.sprite.Group()
+
+        self._create_alien_fleet()
 
     def run_full_screen(self):
         """在全屏模式下运行游戏"""
@@ -29,13 +37,7 @@ class AlienInvasion:
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
 
-    def run_game(self):
-        """开始游戏主循环"""
-        while True:
-            self._check_events()    # 检查事件
-            self.ship.update()      # 更新飞船
-            self._update_screen()   # 刷新屏幕
-            
+    # 事件
     def _check_events(self):
         """监听键盘和鼠标事件"""
         for event in pygame.event.get():
@@ -64,14 +66,71 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False             
 
+    # 外星人
+    def _create_alien_fleet(self):
+        """创建外星人舰队"""
+        # 创建一个外星人
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        
+        # 创建一行外星人，间距为一个外星人宽
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
 
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - 
+                             (3 * alien_width) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
+
+        for row_number in range(number_rows):
+            # 创建一行外星人
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
+        """创建一个外星人放在当前行"""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + 2 * alien_width * alien_number  # 向右平移
+        alien.rect.x = alien.x
+        alien.rect.y = alien_height * (1 + 2 * row_number)
+        self.aliens.add(alien)        
+    
+    def _check_fleet_edges(self):
+        """检查是否有外星人触碰到边缘, 并做出反应"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """将外星人下移，并改变方向"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.alien_drop_speed
+        self.settings.fleet_direction *= -1
+        
+    def _update_aliens(self):
+        """更新所有外星人的位置"""
+        self._check_fleet_edges()
+        self.aliens.update()
+
+    # 游戏屏幕
     def _update_screen(self):
         """绘制并显示新的屏幕内容"""
         self.screen.fill(self.settings.bg_color)
-        self.ship.blit_ship()
-        
+        self.ship.blit_ship()           # 画一艘船
+        self.aliens.draw(self.screen)   # 依次画所有的外星人
+
         pygame.display.flip()
 
+    def run_game(self):
+        """开始游戏主循环"""
+        while True:
+            self._check_events()    # 检查事件
+            self.ship.update()      # 更新飞船
+            self._update_aliens()
+            self._update_screen()   # 刷新屏幕
+            
 if __name__ == "__main__":
     flag = False
     # flag = True
