@@ -1,4 +1,5 @@
 import sys
+import time
 
 import pygame
 
@@ -25,8 +26,9 @@ class AlienInvasion:
                 (self.settings.screen_width, 
                 self.settings.screen_height))
             self.settings.alien_speed = 0.2
-            self.settings.bullet_speed = 0.1
+            self.settings.bullet_speed = 0.5
             self.settings.alien_drop_speed = 5
+            self.settings.bullet_width = 600
         pygame.display.set_caption("Alien Invasion")
 
         # 游戏资源
@@ -88,6 +90,19 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+            
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
+        """检查是否有子弹碰撞到外星人，并删除他们"""
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True
+        )
+        
+        if not self.aliens:
+            # 清除所有子弹并重新生成外星人
+            self.bullets.empty()
+            self._create_alien_fleet()        
                 
     # 外星人
     def _create_alien_fleet(self):
@@ -134,8 +149,9 @@ class AlienInvasion:
         
     def _update_aliens(self):
         """更新所有外星人的位置"""
-        self._check_fleet_edges()
-        self.aliens.update()
+        # self._check_fleet_edges()
+        # self.aliens.update()
+        pass
 
     # 游戏屏幕
     def _update_screen(self):
