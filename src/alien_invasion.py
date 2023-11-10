@@ -7,6 +7,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from game_stat import GameStats
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -16,7 +17,8 @@ class AlienInvasion:
         pygame.init()
         pygame.display.set_caption("Alien Invasion")
         
-        self.settings = Settings(full_scrren)
+        self.settings = Settings()
+        self.stats = GameStats(self)
 
         # 游戏屏幕：surface 对象
         if full_scrren:
@@ -25,9 +27,9 @@ class AlienInvasion:
             self.screen = pygame.display.set_mode(
                 (self.settings.screen_width, 
                 self.settings.screen_height))
-            self.settings.alien_speed = 0.2
-            self.settings.bullet_speed = 0.5
-            self.settings.alien_drop_speed = 5
+            # self.settings.alien_speed = 1.0
+            # self.settings.alien_drop_speed = 10
+            self.settings.bullet_speed = 1.0
             self.settings.bullet_width = 600
         pygame.display.set_caption("Alien Invasion")
 
@@ -149,9 +151,26 @@ class AlienInvasion:
         
     def _update_aliens(self):
         """更新所有外星人的位置"""
-        # self._check_fleet_edges()
-        # self.aliens.update()
-        pass
+        self._check_fleet_edges()
+        self.aliens.update()
+        
+        # 检测飞船与外星人碰撞
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+
+    # 飞船
+    def _ship_hit(self):
+        """响应飞船被外星人撞到"""
+        # 扣除生命值
+        self.stats.ships_left -= 1
+        # 清空屏幕
+        self.aliens.empty()
+        self.bullets.empty()
+        # 重置游戏元素
+        self._create_alien_fleet()
+        self.ship.center_ship()
+
+        time.sleep(0.5)
 
     # 游戏屏幕
     def _update_screen(self):
