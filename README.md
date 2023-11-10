@@ -40,3 +40,32 @@ add aliens
 - Day5
 add collisions
 end game
+
+### Sprint 3: 计分
+<h5>sprint 3 backlog:</h5>
+
+- [ ] play button
+    - [ ] create button
+    - [ ] draw button
+    - [ ] start game
+    - [ ] reset game
+    - [ ] hide play button
+    - [ ] hide cursor
+- [ ] higher level
+    - [ ] change game speed
+    - [ ] reset game speed
+- [ ] tally
+    - [ ] display score
+    - [ ] create tally board
+    - [ ] update score
+    - [ ] reset score
+    - [ ] count every aliens
+    - [ ] increase score
+    - [ ] round score
+    - [ ] highest score
+    - [ ] show levels
+    - [ ] display number of remaining ships
+
+**<h5>Summary:</h5>**
+
+<p></p>
