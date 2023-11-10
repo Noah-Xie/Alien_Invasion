@@ -32,6 +32,7 @@ class AlienInvasion:
             self.settings.bullet_speed = 1.0
             self.settings.bullet_width = 600
         pygame.display.set_caption("Alien Invasion")
+        self.screen_rect = self.screen.get_rect()
 
         # 游戏资源
         self.ship = Ship(self)
@@ -158,19 +159,29 @@ class AlienInvasion:
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
 
+    def _check_aliens_bottom(self):
+        """检查是否有外星人到达底部"""
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.screen_rect.bottom:
+                self._ship_hit()  # 等同于撞到飞船
+                break
+
     # 飞船
     def _ship_hit(self):
         """响应飞船被外星人撞到"""
-        # 扣除生命值
-        self.stats.ships_left -= 1
-        # 清空屏幕
-        self.aliens.empty()
-        self.bullets.empty()
-        # 重置游戏元素
-        self._create_alien_fleet()
-        self.ship.center_ship()
-
-        time.sleep(0.5)
+        if self.stats.ships_left > 0:
+            # 扣除生命值
+            self.stats.ships_left -= 1
+            # 清空屏幕
+            self.aliens.empty()
+            self.bullets.empty()
+            # 重置游戏元素
+            self._create_alien_fleet()
+            self.ship.center_ship()
+            # 暂停游戏，给出反应事件
+            time.sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     # 游戏屏幕
     def _update_screen(self):
@@ -183,13 +194,17 @@ class AlienInvasion:
 
         pygame.display.flip()
 
+    # 运行游戏
     def run_game(self):
         """开始游戏主循环"""
         while True:
             self._check_events()    # 检查事件
-            self.ship.update()      # 更新飞船
-            self._update_bullets()  # 更新子弹
-            self._update_aliens()
+
+            if self.stats.game_active:
+                self.ship.update()      # 更新飞船
+                self._update_bullets()  # 更新子弹
+                self._update_aliens()   # 依次更新所有外星人
+                
             self._update_screen()   # 刷新屏幕
             
 if __name__ == "__main__":
