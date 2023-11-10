@@ -37,7 +37,6 @@ class Ship:
         # 利用小数值的x来更新rect值
         self.rect.x = self.x
 
-
     def blit_ship(self):
         """在指定位置绘制飞船"""
         self.screen.blit(self.image, self.rect)
