@@ -3,7 +3,7 @@ class Settings:
     RIGHT = 1
     LEFT = -1
 
-    def __init__(self):
+    def __init__(self,full_screen):
         """初始化游戏设置"""
         # 屏幕设置
         self.screen_width = 1200
@@ -13,7 +13,14 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # 飞船设置
-        self.ship_speed = 1.5
+        self.ship_speed = 1.0
+  
+        # 子弹设置
+        self.bullet_speed = 1.0
+        self.bullet_width = 3
+        self.bullet_height = 5
+        self.bullet_color = (60, 60, 60)
+        self.bullet_allowed = 3  
 
         # 外星人设置
         self.alien_speed = 1.0

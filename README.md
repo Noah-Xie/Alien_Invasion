@@ -9,10 +9,10 @@ this is a game developed with pygame.
 ## System requirement
 - pygame
 
-
-
 ## Sprint Plan
 #### Sprint1
+- Day0 项目规划
+编写项目描述
 - Day1
 game base
 - Day2
@@ -36,4 +36,3 @@ sprint2 backlog：
 - [ ] 限制飞船数量，结束游戏
 - Day4
 add aliens
-
