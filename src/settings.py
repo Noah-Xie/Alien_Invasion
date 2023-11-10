@@ -3,7 +3,7 @@ class Settings:
     RIGHT = 1
     LEFT = -1
 
-    def __init__(self,full_screen):
+    def __init__(self):
         """初始化游戏设置"""
         # 屏幕设置
         self.screen_width = 1200
@@ -14,6 +14,7 @@ class Settings:
 
         # 飞船设置
         self.ship_speed = 1.0
+        self.ship_limit = 3
   
         # 子弹设置
         self.bullet_speed = 1.0
