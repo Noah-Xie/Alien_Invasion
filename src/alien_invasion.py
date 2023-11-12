@@ -131,7 +131,7 @@ class AlienInvasion:
             # 清除所有子弹并重新生成外星人
             self.bullets.empty()
             self._create_alien_fleet()
-            self.setting.increase_game_speed()  # 并且游戏提速
+            self.settings.increase_game_speed()  # 并且游戏提速
                 
     # 外星人
     def _create_alien_fleet(self):
@@ -176,6 +176,13 @@ class AlienInvasion:
             alien.rect.y += self.settings.alien_drop_speed
         self.settings.fleet_direction *= -1
         
+    def _check_aliens_bottom(self):
+        """检查是否有外星人到达底部"""
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.screen_rect.bottom:
+                self._ship_hit()  # 等同于撞到飞船
+                break
+
     def _update_aliens(self):
         """更新所有外星人的位置"""
         self._check_fleet_edges()
@@ -184,13 +191,9 @@ class AlienInvasion:
         # 检测飞船与外星人碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
-
-    def _check_aliens_bottom(self):
-        """检查是否有外星人到达底部"""
-        for alien in self.aliens.sprites():
-            if alien.rect.bottom >= self.screen_rect.bottom:
-                self._ship_hit()  # 等同于撞到飞船
-                break
+        
+        # 检测外星人抵达屏幕底端
+        self._check_aliens_bottom()
 
     # 飞船
     def _ship_hit(self):
