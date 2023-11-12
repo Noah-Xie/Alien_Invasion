@@ -86,9 +86,23 @@ class AlienInvasion:
             self.ship.moving_left = False
     
     def _check_play_button(self, mouse_pos):
-        """点击play按钮, 开始游戏"""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        """点击play按钮, 开始新的游戏"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        # 仅当游戏未开始时，才可以出发click button的效果
+        if button_clicked and not self.stats.game_active:
             self.stats.game_active = True
+            self.stats.reset_stats()
+            
+            # 清空场上游戏元素
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # 重新创建外星人群和飞船
+            self._create_alien_fleet()
+            self.ship.center_ship()
+
+            # 隐藏鼠标光标
+            pygame.mouse.set_visible(False)
 
     # 子弹
     def _fire_bullet(self):
@@ -180,9 +194,10 @@ class AlienInvasion:
     # 飞船
     def _ship_hit(self):
         """响应飞船被外星人撞到"""
+        # 扣除生命值
+        self.stats.ships_left -= 1
+
         if self.stats.ships_left > 0:
-            # 扣除生命值
-            self.stats.ships_left -= 1
             # 清空屏幕
             self.aliens.empty()
             self.bullets.empty()
@@ -193,6 +208,8 @@ class AlienInvasion:
             time.sleep(0.5)
         else:
             self.stats.game_active = False
+            # 当游戏结束时要重新显示鼠标方便用户点击开始按钮
+            pygame.mouse.set_visible(True)  
 
     # 游戏屏幕
     def _update_screen(self):
