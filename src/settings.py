@@ -42,6 +42,9 @@ class Settings:
         self.alien_speed = 1.0
         self.fleet_direction = Settings.RIGHT
 
+        # 外星人的分值
+        self.alien_points = 50
+
     def increase_game_speed(self):
         """提高速度设置"""
         self.ship_speed   *= self.speedup_scape

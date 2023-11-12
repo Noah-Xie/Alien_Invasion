@@ -131,9 +131,15 @@ class AlienInvasion:
 
     def _check_bullet_alien_collisions(self):
         """检查是否有子弹碰撞到外星人，并删除他们"""
+        old_fleet_ct = len(self.aliens)
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True
         )
+        # 击杀外星人获得分数
+        if collisions:
+            new_fleet_ct = len(self.aliens)
+            self.stats.score += self.settings.alien_points* (old_fleet_ct - new_fleet_ct)
+            self.scoreBoard.prep_score()  # 重新渲染（绘制）分数
         
         if not self.aliens:
             # 清除所有子弹并重新生成外星人
