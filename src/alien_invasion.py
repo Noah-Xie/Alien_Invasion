@@ -8,6 +8,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stat import GameStats
+from button import Button
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -41,6 +42,8 @@ class AlienInvasion:
 
         self._create_alien_fleet()
 
+        # Play 按钮
+        self.play_button = Button(self, "Play")
 
     def run_full_screen(self):
         """在全屏模式下运行游戏"""
@@ -191,6 +194,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites(): # 画所有的子弹
             bullet.draw_bullet()
         self.aliens.draw(self.screen)   # 依次画所有的外星人
+
+        # 当游戏未开始时，绘制Play按钮
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 
