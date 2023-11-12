@@ -34,6 +34,7 @@ class Settings:
 
         # 游戏节奏速度
         self.speedup_scape = 1.1
+        self.score_scale = 1.5
 
     def initialize_dynamic_settings(self):
         """初始化随游戏进行而变化的设置"""
@@ -50,3 +51,4 @@ class Settings:
         self.ship_speed   *= self.speedup_scape
         self.bullet_speed *= self.speedup_scape
         self.alien_speed  *= self.speedup_scape
+        self.alien_points *= self.score_scale

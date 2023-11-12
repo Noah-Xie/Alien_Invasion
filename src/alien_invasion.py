@@ -139,7 +139,7 @@ class AlienInvasion:
         if collisions:
             # 碰撞字典: 子弹:击中的外星人列表
             for aliens in collisions.values():
-                self.stats.score += self.settings.alien_points * len(aliens)
+                self.stats.score += int(self.settings.alien_points * len(aliens))
             self.scoreBoard.prep_score()  # 重新渲染（绘制）分数
         
         if not self.aliens:
