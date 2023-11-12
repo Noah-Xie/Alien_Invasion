@@ -88,8 +88,12 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """点击play按钮, 开始新的游戏"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        # 仅当游戏未开始时，才可以出发click button的效果
+        # 仅当游戏未开始时，才可以触发click button的效果
         if button_clicked and not self.stats.game_active:
+            # 重置游戏设置
+            self.settings.initialize_dynamic_settings()
+
+            # 重置游戏状态
             self.stats.game_active = True
             self.stats.reset_stats()
             
