@@ -44,27 +44,29 @@ end game
 ### Sprint 3: 计分
 <h5>sprint 3 backlog:</h5>
 
-- [ ] play button
+- [x] play button
     - [ ] create button
     - [ ] draw button
     - [ ] start game
     - [ ] reset game
     - [ ] hide play button
     - [ ] hide cursor
-- [ ] higher level
+- [x] higher level
     - [ ] change game speed
     - [ ] reset game speed
 - [ ] tally
-    - [ ] display score
-    - [ ] create tally board
-    - [ ] update score
-    - [ ] reset score
-    - [ ] count every aliens
-    - [ ] increase score
-    - [ ] round score
+    - [x] display score
+    - [x] create tally board
+    - [x] update score
+    - [x] reset score
+    - [x] count every aliens
+    - [x] increase score
+    - [x] round score
     - [ ] highest score
     - [ ] show levels
     - [ ] display number of remaining ships
+- Day6
+1.complete play button; 2.complete higher level; 3.complete tally board except (1)score history and (2)display other game information.
 
 **<h5>Summary:</h5>**
 
