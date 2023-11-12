@@ -130,7 +130,8 @@ class AlienInvasion:
         if not self.aliens:
             # 清除所有子弹并重新生成外星人
             self.bullets.empty()
-            self._create_alien_fleet()        
+            self._create_alien_fleet()
+            self.setting.increase_game_speed()  # 并且游戏提速
                 
     # 外星人
     def _create_alien_fleet(self):
