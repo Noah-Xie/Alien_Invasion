@@ -12,7 +12,7 @@ class Button:
         # 设置按钮尺寸和其他属性
         self.width, self.height = 200, 50
         self.button_color = (0, 255, 0)
-        self.text_color = (255, 255, 2555)
+        self.text_color = (255, 255, 255)
         self.font = font.SysFont(None, 48)
 
         # 创建按钮的rect对象，并居中
@@ -26,8 +26,8 @@ class Button:
         """将msg渲染为图像, 并在按钮上居中"""
         self.msg_image = self.font.render(
             msg, True, self.text_color, self.button_color)
-        self.msg_rect = self.msg_image.get_rect()
-        self.msg_rect.center = self.rect.center
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
         """绘制按钮, 绘制文本"""
