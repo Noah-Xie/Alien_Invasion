@@ -9,20 +9,20 @@ from bullet import Bullet
 from alien import Alien
 from game_stat import GameStats
 from button import Button
+from score_board import ScoreBoard
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
 
-    def __init__(self, full_scrren=False):
+    def __init__(self, full_screen=False):
         """初始化游戏并创建资源"""
         pygame.init()
         pygame.display.set_caption("Alien Invasion")
         
         self.settings = Settings()
-        self.stats = GameStats(self)
 
         # 游戏屏幕：surface 对象
-        if full_scrren:
+        if full_screen:
             self.run_full_screen()
         else:
             self.screen = pygame.display.set_mode(
@@ -34,6 +34,10 @@ class AlienInvasion:
             self.settings.bullet_width = 600
         pygame.display.set_caption("Alien Invasion")
         self.screen_rect = self.screen.get_rect()
+
+        # 游戏统计信息
+        self.stats = GameStats(self)
+        self.scoreBoard = ScoreBoard(self)
 
         # 游戏资源
         self.ship = Ship(self)
@@ -227,6 +231,9 @@ class AlienInvasion:
         for bullet in self.bullets.sprites(): # 画所有的子弹
             bullet.draw_bullet()
         self.aliens.draw(self.screen)   # 依次画所有的外星人
+
+        # 显示游戏得分
+        self.scoreBoard.show_score()
 
         # 当游戏未开始时，绘制Play按钮
         if not self.stats.game_active:
