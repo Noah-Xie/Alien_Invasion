@@ -3,10 +3,14 @@ class GameStats:
 
     def __init__(self, game):
         """初始化统计信息"""
-        self.game_active = True
+        self.game_active = False
         self.settings = game.settings
         self.reset_stats()
+
+        self.high_score = game.high_score
 
     def reset_stats(self):
         """重置会变化的游戏统计信息"""
         self.ships_left = self.settings.ship_limit
+        self.score = 0  # 游戏得分
+        self.level = 0  # 游戏等级
