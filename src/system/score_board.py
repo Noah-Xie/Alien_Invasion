@@ -1,7 +1,8 @@
 import pygame.font as font
 from pygame.sprite import Group
 
-from ship import Ship
+from elements import ship
+Ship = ship.Ship
 
 class ScoreBoard:
     """记分牌, 显示游戏得分的类"""

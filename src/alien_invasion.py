@@ -3,13 +3,21 @@ import time
 
 import pygame
 
-from settings import Settings
-from ship import Ship
-from bullet import Bullet
-from alien import Alien
-from game_stat import GameStats
-from button import Button
-from score_board import ScoreBoard
+from system import setting
+from elements import ship
+from elements import bullet
+from elements import alien
+from system import game_stat
+from system import button
+from system import score_board
+
+Settings = setting.Settings
+Ship = ship.Ship
+Bullet = bullet.Bullet
+Alien = alien.Alien
+GameStats = game_stat.GameStats
+Button = button.Button
+ScoreBoard = score_board.ScoreBoard
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
