@@ -62,12 +62,23 @@ end game
     - [x] count every aliens
     - [x] increase score
     - [x] round score
-    - [ ] highest score
-    - [ ] show levels
-    - [ ] display number of remaining ships
+    - [x] highest score
+    - [x] show levels
+    - [x] display number of remaining ships
 - Day6
 1.complete play button; 2.complete higher level; 3.complete tally board except (1)score history and (2)display other game information.
+- Day7
+1.complete high score 2.display remaining ships 3.add bgm
 
-**<h5>Summary:</h5>**
+**<h4>Summary:</h4>**
 
-<p></p>
+<p>
+<b>开发tips</b>
+
+要做项目管理和规划，写好任务清单，先思考明白开发思路，和程序结构框架再开发
+
+先完成可以运行的代码，再去重构，出现效率问题再去优化
+
+**pygame：**
+
+surface对象，事件列表，外接矩形，导入图片，绘制图片和矩形，编组，编组绘画，编组使用（如 遍历），计算空间参数，碰撞检测，边缘检测，编组的碰撞检测，渲染文本，文本转化成图像，再转化成外接矩形，检测鼠标事件，碰撞字典，文字排版，保存信息为文件</p>
