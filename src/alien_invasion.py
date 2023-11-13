@@ -101,6 +101,8 @@ class AlienInvasion:
             self.stats.game_active = True
             self.stats.reset_stats()
             self.score_board.prep_score()
+            self.score_board.prep_level()
+            self.score_board.prep_ships()
             
             # 清空场上游戏元素
             self.aliens.empty()
@@ -220,6 +222,7 @@ class AlienInvasion:
         """响应飞船被外星人撞到"""
         # 扣除生命值
         self.stats.ships_left -= 1
+        self.score_board.prep_ships()
 
         # 游戏继续
         if self.stats.ships_left > 0:
@@ -238,7 +241,6 @@ class AlienInvasion:
             pygame.mouse.set_visible(True)
             # 开始新游戏的时候要重置等级
             self.stats.level = 0
-            self.score_board.prep_level()
 
     # 游戏屏幕
     def _update_screen(self):

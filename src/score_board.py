@@ -1,10 +1,14 @@
 import pygame.font as font
+from pygame.sprite import Group
+
+from ship import Ship
 
 class ScoreBoard:
     """记分牌, 显示游戏得分的类"""
 
     def __init__(self, game):
         """初始化显示得分需要的属性"""
+        self.game = game
         self.screen = game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = game.settings
@@ -18,6 +22,7 @@ class ScoreBoard:
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
+        self.prep_ships()
 
     def prep_score(self):
         """将得分转换成渲染图像"""
@@ -61,8 +66,20 @@ class ScoreBoard:
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
 
+    def prep_ships(self):
+        """渲染剩余的飞船生命值"""
+        self.ships = Group()
+        print(self.stats.ships_left)
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
+
     def show_score(self):
         """显示记分牌"""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.ships.draw(self.screen)  # 对编组调用draw
+
