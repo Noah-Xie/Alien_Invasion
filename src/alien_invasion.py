@@ -72,7 +72,6 @@ class AlienInvasion:
                     if self.stats.high_score > self.high_score:
                         with open(self.settings.high_score_path, 'w') as f:
                             f.write(str(self.stats.high_score))
-                    print(self.stats.high_score)
                 except FileNotFoundError:
                     print("Can not save new high_score to high_score.txt file.")
                 sys.exit()

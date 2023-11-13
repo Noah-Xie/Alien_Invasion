@@ -1,3 +1,5 @@
+import pygame
+
 class Settings:
     """存储游戏设置"""
     RIGHT = 1
@@ -6,12 +8,15 @@ class Settings:
     def __init__(self):
         """初始化游戏设置"""
         self.high_score_path = './src/data/high_score.txt'
-        
+        self.bgm_path = './src/data/bgm.mp3'
+
         # 游戏的静态设置
         self.initialize_static_settings()
 
         # 游戏的动态设置
         self.initialize_dynamic_settings()
+
+        self.play_background_music()
 
     def initialize_static_settings(self):
         """初始化游戏静态设置"""
@@ -54,3 +59,13 @@ class Settings:
         self.bullet_speed *= self.speedup_scape
         self.alien_speed  *= self.speedup_scape
         self.alien_points *= self.score_scale
+
+    def play_background_music(self):
+        """播放背景音乐"""
+        pygame.mixer.init()
+        try:
+            pygame.mixer.music.load(self.bgm_path)
+            pygame.mixer.music.play(-1)  # -1 plays the music indefinitely
+        except Exception as e:
+            print("Can not play background music",e)
+        
