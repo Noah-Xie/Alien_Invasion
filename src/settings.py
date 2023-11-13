@@ -5,6 +5,8 @@ class Settings:
 
     def __init__(self):
         """初始化游戏设置"""
+        self.high_score_path = './src/data/high_score.txt'
+        
         # 游戏的静态设置
         self.initialize_static_settings()
 

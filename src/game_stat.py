@@ -7,7 +7,7 @@ class GameStats:
         self.settings = game.settings
         self.reset_stats()
 
-        self.high_score = 0
+        self.high_score = game.high_score
 
     def reset_stats(self):
         """重置会变化的游戏统计信息"""

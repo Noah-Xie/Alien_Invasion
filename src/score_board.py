@@ -69,7 +69,6 @@ class ScoreBoard:
     def prep_ships(self):
         """渲染剩余的飞船生命值"""
         self.ships = Group()
-        print(self.stats.ships_left)
         for ship_number in range(self.stats.ships_left):
             ship = Ship(self.game)
             ship.rect.x = 10 + ship_number * ship.rect.width

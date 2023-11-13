@@ -36,6 +36,14 @@ class AlienInvasion:
         self.screen_rect = self.screen.get_rect()
 
         # 游戏统计信息
+        self.high_score = 0
+        try:
+            with open(self.settings.high_score_path, "r") as f:
+                self.high_score = int(f.readline())
+        except FileNotFoundError:
+            print("Can not find high_score.txt file.")
+        except ValueError:
+            print("Wrong data format.")
         self.stats = GameStats(self)
         self.score_board = ScoreBoard(self)
 
@@ -60,6 +68,13 @@ class AlienInvasion:
         """监听键盘和鼠标事件"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                try:
+                    if self.stats.high_score > self.high_score:
+                        with open(self.settings.high_score_path, 'w') as f:
+                            f.write(str(self.stats.high_score))
+                    print(self.stats.high_score)
+                except FileNotFoundError:
+                    print("Can not save new high_score to high_score.txt file.")
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
