@@ -37,7 +37,7 @@ class AlienInvasion:
 
         # 游戏统计信息
         self.stats = GameStats(self)
-        self.scoreBoard = ScoreBoard(self)
+        self.score_board = ScoreBoard(self)
 
         # 游戏资源
         self.ship = Ship(self)
@@ -100,7 +100,7 @@ class AlienInvasion:
             # 重置游戏状态
             self.stats.game_active = True
             self.stats.reset_stats()
-            self.scoreBoard.prep_score()
+            self.score_board.prep_score()
             
             # 清空场上游戏元素
             self.aliens.empty()
@@ -140,11 +140,12 @@ class AlienInvasion:
             # 碰撞字典: 子弹:击中的外星人列表
             for aliens in collisions.values():
                 self.stats.score += int(self.settings.alien_points * len(aliens))
-            self.scoreBoard.prep_score()  # 重新渲染（绘制）分数
+            self.score_board.prep_score()  # 重新渲染（绘制）分数
+            self.score_board.check_high_score() # 渲染目前最高分
         
         if not self.aliens:
             # 清除所有子弹并重新生成外星人
-            self.bullets.empty()
+            self.bullets.empty() 
             self._create_alien_fleet()
             self.settings.increase_game_speed()  # 并且游戏提速
                 
@@ -240,7 +241,7 @@ class AlienInvasion:
         self.aliens.draw(self.screen)   # 依次画所有的外星人
 
         # 显示游戏得分
-        self.scoreBoard.show_score()
+        self.score_board.show_score()
 
         # 当游戏未开始时，绘制Play按钮
         if not self.stats.game_active:
