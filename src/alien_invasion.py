@@ -148,6 +148,10 @@ class AlienInvasion:
             self.bullets.empty() 
             self._create_alien_fleet()
             self.settings.increase_game_speed()  # 并且游戏提速
+
+            # 提高等级
+            self.stats.level += 1
+            self.score_board.prep_level()
                 
     # 外星人
     def _create_alien_fleet(self):
@@ -217,6 +221,7 @@ class AlienInvasion:
         # 扣除生命值
         self.stats.ships_left -= 1
 
+        # 游戏继续
         if self.stats.ships_left > 0:
             # 清空屏幕
             self.aliens.empty()
@@ -226,10 +231,14 @@ class AlienInvasion:
             self.ship.center_ship()
             # 暂停游戏，给出反应事件
             time.sleep(0.5)
+        # 游戏结束
         else:
             self.stats.game_active = False
             # 当游戏结束时要重新显示鼠标方便用户点击开始按钮
-            pygame.mouse.set_visible(True)  
+            pygame.mouse.set_visible(True)
+            # 开始新游戏的时候要重置等级
+            self.stats.level = 0
+            self.score_board.prep_level()
 
     # 游戏屏幕
     def _update_screen(self):
